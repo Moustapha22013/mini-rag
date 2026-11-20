@@ -43,7 +43,30 @@ A minimal RAG (Retrieval-Augmented Generation) application: upload documents, in
    pip install -r requirements.txt
    ```
 
-4. Create a `.env` file in the project root for your settings and API keys (for example `OPENAI_API_KEY`, `COHERE_API_KEY`, database URLs). Never commit this file.
+4. Create your environment file from the template, then fill in your own values:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+## Configuration
+
+All settings are read from `.env` in the project root. The `.env` file holds secrets, so it is listed in `.gitignore` and never committed. Only `.env.example` (with empty values) is kept in the repository.
+
+| Variable(s) | Description |
+|-------------|-------------|
+| `APP_NAME`, `APP_VERSION` | Application name and version |
+| `FILE_ALLOWED_TYPES`, `FILE_MAX_SIZE`, `FILE_DEFAULT_CHUNK_SIZE` | Accepted upload types, maximum size (MB), and read chunk size (bytes) |
+| `MONGODB_URL`, `MONGODB_DATABASE` | MongoDB connection |
+| `POSTGRES_USERNAME`, `POSTGRES_PASSWORD`, `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_MAIN_DATABASE` | PostgreSQL connection |
+| `OPENAI_API_KEY`, `OPENAI_API_URL` | OpenAI key; set the URL only for an OpenAI-compatible server (e.g. Ollama) |
+| `COHERE_API_KEY` | Cohere key |
+| `GENERATION_BACKEND`, `GENERATION_MODEL_ID` | Provider and model used to generate answers |
+| `EMBEDDING_BACKEND`, `EMBEDDING_MODEL_ID`, `EMBEDDING_MODEL_SIZE` | Provider, model, and vector size used for embeddings |
+| `VECTOR_DB_BACKEND`, `VECTOR_DB_PATH`, `VECTOR_DB_DISTANCE_METHOD` | Vector store (`QDRANT` or `PGVECTOR`), local path, and similarity metric |
+| `CELERY_BROKER_URL`, `CELERY_RESULT_BACKEND` | Redis URLs used by Celery |
+
+When you add a new setting, add it to `.env.example` too (without the secret value).
 
 ## Running
 
